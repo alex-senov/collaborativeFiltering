@@ -5,9 +5,7 @@ import entities.Rates;
 import entities.User;
 import entities.UserRates;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,13 +16,14 @@ import java.util.Map;
  * Time: 7:15 PM
  */
 public class UsersReader{
-    private static String FILE_NAME = UsersReader.class.getClassLoader().getResource("test_users_rates.txt").getPath();
+    //private static String FILE_NAME = UsersReader.class.getClassLoader().getResource("resources/test_users_rates.txt").getPath();
+    private static InputStream inputStream = UsersReader.class.getClassLoader().getResourceAsStream("resources/test_users_rates.txt");
 
     private static final String DELIMITER = ";";
     private static final String SEPARATOR = ",";
 
     public static Map<User, Rates> getAllUsersRates() throws IOException{
-        BufferedReader reader = new BufferedReader(new FileReader(FILE_NAME));
+        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
         Map<User, Rates> result = new HashMap<User, Rates>();
         while(reader.ready()){
             UserRates userRates = getUserRatesFromString(reader.readLine());

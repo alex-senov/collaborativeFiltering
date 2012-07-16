@@ -1,13 +1,11 @@
 <component name="ArtifactManager">
-  <artifact name="CollaborativeFiltering:jar">
+  <artifact type="jar" name="CollaborativeFiltering:jar">
     <output-path>$PROJECT_DIR$/out/artifacts/CollaborativeFiltering_jar</output-path>
-    <root id="root">
-      <element id="archive" name="CollaborativeFiltering.jar">
-        <element id="directory" name="META-INF">
-          <element id="file-copy" path="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" />
-        </element>
-        <element id="module-output" name="CollaborativeFiltering" />
+    <root id="archive" name="CollaborativeFiltering.jar">
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" />
       </element>
+      <element id="module-output" name="CollaborativeFiltering" />
     </root>
   </artifact>
 </component>
