@@ -8,9 +8,10 @@ while(Current.clusters.size<1000){
 }
   
 generate.cluster<-function(){
-  cluster.size<-sample(R.clusters.items.sizes, size=1)     
-  cluster.items<-generate.cluster.items(cluster.size)
-  
+  cluster.items.size<-sample(R.clusters.items.sizes, size=1)     
+  cluster.items<-generate.cluster.items(cluster.items.size)
+  cluster.items.rates<-generate.user.rates(cluster.items.size)
+   
 }
 
 generate.cluster.items<-function(n){

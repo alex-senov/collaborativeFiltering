@@ -15,14 +15,20 @@ import java.util.NoSuchElementException;
  * Time: 7:54 PM
  */
 public class TestUserRatesProvider implements UserRatesProvider{
+    private final UsersStorage usersStorage;
+
+    public TestUserRatesProvider(UsersStorage usersStorage){
+        this.usersStorage = usersStorage;
+    }
+
     @Override
     public UserRates provide(User user){
-        Rates rates = UsersStorage.getUserRates(user);
+        Rates rates = usersStorage.getUserRates(user);
         if(null == rates)
             throw new NoSuchElementException("User " + user + " doesn't exist.");
         return new UserRates(
                 user,
-                UsersStorage.getUserRates(user)
+                usersStorage.getUserRates(user)
         );
     }
 }

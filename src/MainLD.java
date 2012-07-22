@@ -6,6 +6,10 @@ import extension.MemoryBasedLeastDesiredFilter;
 import providers.inmemory.TestItemProvider;
 import providers.inmemory.TestSimilarUsersProvider;
 import providers.inmemory.TestUserRatesProvider;
+import providers.inmemory.util.UsersReaderSimple;
+import providers.inmemory.util.UsersStorage;
+
+import java.io.IOException;
 
 /**
  * Created with IntelliJ IDEA, and God's blessing.
@@ -20,14 +24,24 @@ public class MainLD{
         Aggregator aggregator = argManager.getAggregator();
         double maxRate = argManager.getMaxRate();
 
-        LeastDesiredFilter leastDesiredFilter = new MemoryBasedLeastDesiredFilter(
-                new TestSimilarUsersProvider(),
-                new TestUserRatesProvider(),
+        String filePath = argManager.getFilePath();
+
+        try{
+            UsersStorage usersStorage =
+                    new UsersStorage(new UsersReaderSimple(filePath).getAllUsersRates());
+
+            LeastDesiredFilter leastDesiredFilter = new MemoryBasedLeastDesiredFilter(
+                new TestSimilarUsersProvider(usersStorage),
+                new TestUserRatesProvider(usersStorage),
                 new TestItemProvider(),
                 aggregator
-        );
+            );
 
-        Rates leastDesired = leastDesiredFilter.getLeastDesired(user, maxRate);
-        System.out.println("Least desired items for user " + user.getId() + " are: " + leastDesired.toString());
+            Rates leastDesired = leastDesiredFilter.getLeastDesired(user, maxRate);
+            System.out.println("Least desired items for user " + user.getId() + " are: " + leastDesired.toString());
+        } catch(IOException e){
+            throw new
+                    RuntimeException(e);
+        }
     }
 }

@@ -18,13 +18,17 @@ import java.util.Set;
  */
 public class UsersStorage{
 
-    private static final Map<User, Rates> usersAndRates;
+    private final Map<User, Rates> usersAndRates;
 
-    public static Rates getUserRates(User user){
+    public UsersStorage(Map<User, Rates> usersAndRates){
+        this.usersAndRates = usersAndRates;
+    }
+
+    public Rates getUserRates(User user){
         return usersAndRates.get(user);
     }
 
-    public static Set<UserRates> getUsersWithItem(Item item){
+    public Set<UserRates> getUsersWithItem(Item item){
         Set<UserRates> result = new HashSet<UserRates>();
         for(Map.Entry<User, Rates> userRate : usersAndRates.entrySet()){
             if(userRate.getValue().isRated(item)){
@@ -38,11 +42,4 @@ public class UsersStorage{
     }
 
 
-    static{
-        try{
-            usersAndRates = UsersReader.getAllUsersRates();
-        } catch(IOException e){
-            throw new RuntimeException(e);
-        }
-    }
 }

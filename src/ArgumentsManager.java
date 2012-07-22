@@ -34,9 +34,17 @@ public class ArgumentsManager{
     }
 
     public String getTask(){
-        if(!arguments.containsKey(TASK))
-            throw new IllegalArgumentException("Necessary argument " + TASK + " missing.");
-        return arguments.get(TASK);
+        return getStringValue(TASK);
+    }
+
+    public String getFilePath(){
+        return getStringValue(FILE_PATH);
+    }
+
+    public String getStringValue(String key){
+        if(!arguments.containsKey(key))
+            throw new IllegalArgumentException("Necessary argument " + key + " missing.");
+        return arguments.get(key);
     }
 
     public User getUser(){
@@ -92,6 +100,7 @@ public class ArgumentsManager{
     private static final String SIMILARITY = "-s";
     private static final String TASK = "-t";
     private static final String MAX_RATE = "-m";
+    private static final String FILE_PATH = "-fp";
 
     private static final Set<String> indicators;
 
@@ -103,6 +112,7 @@ public class ArgumentsManager{
         indicators.add(SIMILARITY);
         indicators.add(TASK);
         indicators.add(MAX_RATE);
+        indicators.add(FILE_PATH);
     }
 
     private final double DEFAULT_MAX_RATE = 3.0;

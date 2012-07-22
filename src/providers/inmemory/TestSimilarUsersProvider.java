@@ -16,8 +16,14 @@ import java.util.Set;
  */
 public class TestSimilarUsersProvider implements SimilarUsersProvider{
 
+    private final UsersStorage usersStorage;
+
+    public TestSimilarUsersProvider(UsersStorage usersStorage){
+        this.usersStorage = usersStorage;
+    }
+
     @Override
     public Set<UserRates> provide(User user, Item item){
-        return UsersStorage.getUsersWithItem(item);
+        return usersStorage.getUsersWithItem(item);
     }
 }

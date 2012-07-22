@@ -61,7 +61,6 @@ public class MemoryBasedLeastDesiredFilter implements LeastDesiredFilter{
         UserRates mainUserRates = userRatesProvider.provide(user);
         Set<Item> items = itemProvider.provide();
         Map<Item, Double> rates = new HashMap<Item, Double>(items.size());
-
         for(Item item : items){
             double rate = aggregator.aggregate(
                     mainUserRates,

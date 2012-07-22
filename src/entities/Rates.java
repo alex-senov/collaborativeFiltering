@@ -57,9 +57,15 @@ public class Rates{
         return rates.hashCode();
     }
 
+    public void put(Item item, Double rate){
+        rates.put(item,rate);
+    }
+
     @Override
     public boolean equals(Object o){
-        return rates.equals(o);    //To change body of overridden methods use File | Settings | File Templates.
+        if(rates.getClass().equals(o.getClass()))
+            return rates.equals(o);
+        return false;
     }
 
     @Override

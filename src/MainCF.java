@@ -5,6 +5,10 @@ import entities.Item;
 import entities.User;
 import providers.inmemory.TestSimilarUsersProvider;
 import providers.inmemory.TestUserRatesProvider;
+import providers.inmemory.util.UsersReaderSimple;
+import providers.inmemory.util.UsersStorage;
+
+import java.io.IOException;
 
 /**
  * Created with IntelliJ IDEA, and God's blessing.
@@ -19,14 +23,23 @@ public class MainCF{
         User user = argManager.getUser();
         Item item = argManager.getItem();
         Aggregator aggregator = argManager.getAggregator();
+        String filePath = argManager.getFilePath();
 
-        CollaborativeFilter collaborativeFilter = new MemoryBasedCollaborativeFilter(
-                new TestUserRatesProvider(),
-                new TestSimilarUsersProvider(),
-                aggregator
-        );
+        try{
+            UsersStorage usersStorage =
+                    new UsersStorage(new UsersReaderSimple(filePath).getAllUsersRates());
 
-        System.out.print("Predicted rate of user " + user.getId() + " for item " + item.getId() + " is: " + collaborativeFilter.rate(user, item));
+            CollaborativeFilter collaborativeFilter = new MemoryBasedCollaborativeFilter(
+                    new TestUserRatesProvider(usersStorage),
+                    new TestSimilarUsersProvider(usersStorage),
+                    aggregator
+            );
+
+            System.out.print("Predicted rate of user " + user.getId() + " for item " + item.getId() + " is: " + collaborativeFilter.rate(user, item));
+        } catch(IOException e){
+            throw new
+                    RuntimeException(e);
+        }
     }
 
 }

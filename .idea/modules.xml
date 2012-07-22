@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/collaborativefiltering.iml" filepath="$PROJECT_DIR$/collaborativefiltering.iml" />
+      <module fileurl="file://$PROJECT_DIR$/CollaborativeFiltering.iml" filepath="$PROJECT_DIR$/CollaborativeFiltering.iml" />
     </modules>
   </component>
 </project>
